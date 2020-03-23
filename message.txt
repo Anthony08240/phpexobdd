@@ -1,0 +1,59 @@
+#------------------------------------------------------------
+#        Script MySQL.
+#------------------------------------------------------------
+
+
+#------------------------------------------------------------
+# Table: cinema
+#------------------------------------------------------------
+
+CREATE TABLE cinema(
+        id_cinema        Int  Auto_increment  NOT NULL ,
+        nom_cinema       Varchar (50) NOT NULL ,
+        ville_cinema     Varchar (50) NOT NULL ,
+        adresse_cinema   Varchar (100) NOT NULL ,
+        mail_cinema      Varchar (50) NOT NULL ,
+        telephone_cinema Varchar (20) NOT NULL
+	,CONSTRAINT cinema_PK PRIMARY KEY (id_cinema)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: salle
+#------------------------------------------------------------
+
+CREATE TABLE salle(
+        id_salle       Int  Auto_increment  NOT NULL ,
+        numero_salle   Int NOT NULL ,
+        capacite_salle Int NOT NULL ,
+        id_cinema      Int NOT NULL
+	,CONSTRAINT salle_PK PRIMARY KEY (id_salle)
+
+	,CONSTRAINT salle_cinema_FK FOREIGN KEY (id_cinema) REFERENCES cinema(id_cinema)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: equipement
+#------------------------------------------------------------
+
+CREATE TABLE equipement(
+        id_equipement            Int  Auto_increment  NOT NULL ,
+        nom_equipement           Varchar (50) NOT NULL ,
+        disponibilite_equipement Int NOT NULL
+	,CONSTRAINT equipement_PK PRIMARY KEY (id_equipement)
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: avoir
+#------------------------------------------------------------
+
+CREATE TABLE avoir(
+        id_equipement Int NOT NULL ,
+        id_salle      Int NOT NULL
+	,CONSTRAINT avoir_PK PRIMARY KEY (id_equipement,id_salle)
+
+	,CONSTRAINT avoir_equipement_FK FOREIGN KEY (id_equipement) REFERENCES equipement(id_equipement)
+	,CONSTRAINT avoir_salle0_FK FOREIGN KEY (id_salle) REFERENCES salle(id_salle)
+)ENGINE=InnoDB;
